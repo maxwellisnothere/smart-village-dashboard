@@ -1,0 +1,36 @@
+/* ลบของเก่าออกให้หมด แล้ววางอันนี้แทน */
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* ช่วยในการจัด Layout */
+
+  /* ตั้งค่า Dark Mode ที่นี่ */
+  background-color: #1a1a1a; /* สีพื้นหลังเข้ม */
+  color: #e0e0e0;           /* สีตัวอักษรเริ่มต้น */
+}
+
+/* ทำให้ Scrollbar สวยขึ้น (เป็นทางเลือก) */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #2a2a2a;
+}
+::-webkit-scrollbar-thumb {
+  background: #444;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

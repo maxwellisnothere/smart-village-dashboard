@@ -1,0 +1,179 @@
+* {
+  box-sizing: border-box;
+}
+/* src/App.css */
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600;800&display=swap');
+
+:root {
+  --bg-main: #0f0f0f;
+  --bg-card: #1c1c1c;
+  --bg-card-hover: #252525;
+  --accent: #FFD700; /* เหลืองทอง */
+  --text-main: #ffffff;
+  --text-muted: #888888;
+  --danger: #ff4757;
+  --success: #2ed573;
+  --radius: 24px;
+}
+
+body {
+  margin: 0;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  font-family: 'Kanit', sans-serif;
+  overflow: hidden; /* ป้องกัน Scrollbar ซ้อน */
+}
+
+/* --- Layout หลัก (Grid System) --- */
+.app-layout {
+  display: grid;
+  grid-template-columns: 80px 1fr 300px; /* Sidebar | Content | RightPanel */
+  height: 100vh;
+  gap: 20px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* --- Sidebar --- */
+.sidebar {
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  display: flex; flex-direction: column; align-items: center;
+  padding: 30px 0; gap: 20px;
+  box-shadow: 5px 0 20px rgba(0,0,0,0.2);
+  z-index: 100;
+}
+
+.brand-icon {
+  font-size: 2rem; color: var(--accent); margin-bottom: 20px;
+  filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
+}
+
+.nav-item {
+  width: 50px; height: 50px; border-radius: 16px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text-muted); cursor: pointer; transition: 0.3s; font-size: 1.4rem;
+  position: relative;
+}
+.nav-item:hover, .nav-item.active {
+  background: var(--accent); color: black; 
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+  transform: scale(1.1);
+}
+.nav-bottom { margin-top: auto; display: flex; flex-direction: column; gap: 20px; }
+
+/* --- Main Content --- */
+.main-content {
+  display: flex; flex-direction: column; gap: 20px; 
+  overflow-y: auto; padding-right: 10px; /* เผื่อที่ให้ Scrollbar */
+}
+.header { display: flex; justify-content: space-between; align-items: center; }
+.header h1 { margin: 0; font-size: 1.8rem; }
+.text-accent { color: var(--accent); text-shadow: 0 0 10px rgba(255, 215, 0, 0.3); }
+.text-sm { font-size: 0.85rem; color: var(--text-muted); }
+
+.banner-card {
+  background: linear-gradient(135deg, #2c2c2c, #111);
+  border-radius: var(--radius); padding: 30px;
+  position: relative; overflow: hidden; border: 1px solid #333;
+  min-height: 180px; display: flex; align-items: center; justify-content: space-between;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+.banner-card::after {
+  content: ''; position: absolute; right: -50px; bottom: -50px; width: 200px; height: 200px;
+  background: var(--accent); border-radius: 50%; filter: blur(80px); opacity: 0.15;
+}
+
+.bento-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+.card, .bento-card {
+  background: var(--bg-card); border-radius: var(--radius); padding: 20px;
+  transition: 0.3s; border: 1px solid transparent;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+.card:hover { transform: translateY(-5px); border-color: #444; box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
+
+.stat-value { font-size: 1.5rem; font-weight: bold; margin-top: 10px; }
+
+/* --- Right Panel --- */
+.right-panel {
+  background: var(--bg-card); border-radius: var(--radius); padding: 25px;
+  display: flex; flex-direction: column; gap: 25px;
+}
+.profile-section { display: flex; align-items: center; gap: 15px; padding-bottom: 20px; border-bottom: 1px solid #333; }
+.avatar {
+  width: 50px; height: 50px; background: #333; border-radius: 50%; 
+  display: flex; align-items: center; justify-content: center; color: var(--accent); font-size: 1.5rem;
+}
+
+.stat-circle-container {
+  background: #111; border-radius: var(--radius); padding: 20px; text-align: center;
+}
+.list-item {
+  display: flex; align-items: center; gap: 12px; padding: 10px;
+  border-radius: 12px; background: #151515; margin-bottom: 10px; transition: 0.2s;
+}
+.list-item:hover { background: #222; }
+.list-icon {
+  width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center;
+}
+
+/* --- Scrollbar Customization --- */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #444; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+/* --- Responsive --- */
+@media (max-width: 1024px) {
+  .app-layout { grid-template-columns: 80px 1fr; }
+  .right-panel { display: none; }
+}
+
+@media (max-width: 768px) {
+  .app-layout { grid-template-columns: 1fr; padding: 10px; gap: 10px; display: block; }
+  .sidebar { 
+    flex-direction: row; width: 100%; height: 70px; padding: 0 20px; 
+    position: fixed; bottom: 0; left: 0; border-radius: 20px 20px 0 0; 
+    justify-content: space-around; z-index: 1000;
+  }
+  .brand-icon, .nav-bottom { display: none; }
+  .main-content { padding-bottom: 80px; height: calc(100vh - 80px); }
+}
+
+/* =========================================================
+   🔐 Login Page Animations & Styles (ส่วนใหม่)
+   ========================================================= */
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Class สำหรับกล่อง Login ให้ลอยขึ้นมา */
+.login-fade-in {
+  animation: fadeIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* วงล้อหมุนๆ เวลาโหลด */
+.spinner {
+  border: 3px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  border-top: 3px solid #000; /* สีดำเพราะอยู่บนปุ่มสีเหลือง */
+  width: 20px;
+  height: 20px;
+  animation: spin 0.8s linear infinite;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* Effect เวลาคลิกที่ช่อง Input ให้ไอคอนด้านหน้าเปลี่ยนสีตาม */
+.input-group:focus-within svg {
+  color: var(--accent) !important;
+  filter: drop-shadow(0 0 8px var(--accent));
+  transform: scale(1.1);
+}
