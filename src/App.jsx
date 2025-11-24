@@ -70,17 +70,16 @@ function App() {
           if (user.role === 'villager') return <HouseDashboard user={user} />;
           
           if (user.role === 'district' || user.role === 'admin' || user.role === 'god') {
-              if (adminSelectedVillageId) return <VillageDashboard user={user} villageIdOverride={adminSelectedVillageId} isViewOnly={true} onBack={handleBackToMap} />;
-              return <AdminOverviewDashboard user={user} />;
+              if (adminSelectedVillageId) return <VillageDashboard user={user} villageIdOverride={adminSelectedVillageId} isViewOnly={true} onBack={handleBackToMap} theme={theme} />;
+              return <AdminOverviewDashboard user={user} theme={theme} />;
           }
           
           if (user.role === 'leader') return <VillageDashboard user={user} />;
       }
 
-      if (activeTab === 'map') return <DistrictMap onSelectVillage={handleVillageSelect} />;
       if (activeTab === 'service_inbox') return <ServiceInbox user={user} />;
       if (activeTab === 'accounting') return <AccountingDashboard />;
-      
+      if (activeTab === 'map') return <DistrictMap onSelectVillage={handleVillageSelect} theme={theme} />;
       if (activeTab === 'market') return <Marketplace />;
       if (activeTab === 'ai') return <AIPrediction />;
       if (activeTab === 'maintenance') return <MaintenanceSystem />;

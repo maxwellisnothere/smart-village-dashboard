@@ -20,7 +20,7 @@ const AccountingDashboard = () => {
 
   // ดึงข้อมูลจาก Node-RED
   useEffect(() => {
-    fetch('http://localhost:1880/api/expenses')
+    fetch('/api/expenses')
       .then(res => res.json())
       .then(resData => {
         setData(resData);

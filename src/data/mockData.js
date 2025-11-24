@@ -13,8 +13,8 @@ const generateHouses = (villageId) => {
   const houses = [];
   for (let i = 1; i <= 10; i++) {
     const id = `h_${villageId.split('_')[1]}_${String(i).padStart(3, '0')}`;
-    const power = Math.floor(Math.random() * 1500); // สุ่มไฟ 0-1500W
-    const vibration = (Math.random() * 8).toFixed(1); // สุ่มสั่น 0-8
+    const power = Math.floor(Math.random() * 1500); 
+    const vibration = (Math.random() * 8).toFixed(1);
     let status = 'normal';
     
     if (power === 0) status = 'error';
@@ -26,27 +26,35 @@ const generateHouses = (villageId) => {
       power: power,
       vibration: vibration,
       status: status,
-      rpm: status === 'error' ? 0 : Math.floor(Math.random() * 2000 + 1000), // รอบหมุน
-      waterLevel: (Math.random() * 100).toFixed(1), // ระดับน้ำ
-      temp: (Math.random() * 40 + 30).toFixed(1) // อุณหภูมิ
+      rpm: status === 'error' ? 0 : Math.floor(Math.random() * 2000 + 1000),
+      waterLevel: (Math.random() * 100).toFixed(1),
+      temp: (Math.random() * 40 + 30).toFixed(1)
     });
   }
   return houses;
 };
 
-// --- สร้างหมู่บ้าน 10 แห่ง ---
+// --- สร้างหมู่บ้าน 10 แห่ง (ปรับพิกัดให้เกาะตามแนวแม่น้ำ) ---
 export const VILLAGES = [
-  { id: 'v_101', name: 'หมู่บ้านโคโนฮะ', lat: 20, lng: 30, status: 'normal' },
-  { id: 'v_102', name: 'หมู่บ้านซึนะ', lat: 60, lng: 70, status: 'warning' },
-  { id: 'v_103', name: 'หมู่บ้านคิริ', lat: 40, lng: 20, status: 'error' },
-  { id: 'v_104', name: 'หมู่บ้านคุโมะ', lat: 80, lng: 40, status: 'normal' },
-  { id: 'v_105', name: 'หมู่บ้านอิวะ', lat: 30, lng: 80, status: 'normal' },
-  { id: 'v_106', name: 'หมู่บ้านโอโตะ', lat: 50, lng: 50, status: 'warning' },
-  { id: 'v_107', name: 'หมู่บ้านอาเมะ', lat: 10, lng: 60, status: 'normal' },
-  { id: 'v_108', name: 'หมู่บ้านทาคิ', lat: 70, lng: 10, status: 'error' },
-  { id: 'v_109', name: 'หมู่บ้านคุสะ', lat: 25, lng: 90, status: 'normal' },
-  { id: 'v_110', name: 'หมู่บ้านยูงะ', lat: 85, lng: 85, status: 'normal' }
+  // โซนต้นน้ำ (ซ้ายบน)
+  { id: 'v_108', name: 'หมู่บ้านทาคิ', lat: 15, lng: 8, status: 'error' },      // ต้นกำเนิดแม่น้ำ
+  { id: 'v_101', name: 'หมู่บ้านโคโนฮะ', lat: 22, lng: 22, status: 'normal' },  // ช่วงไหลลงมา (Yushu)
+  
+  // โซนกลางน้ำ (กลางภาพ - โค้งแม่น้ำ)
+  { id: 'v_103', name: 'หมู่บ้านคิริ', lat: 42, lng: 35, status: 'error' },     // (Chengdu area)
+  { id: 'v_106', name: 'หมู่บ้านโอโตะ', lat: 52, lng: 45, status: 'warning' },  // (Chongqing)
+  { id: 'v_102', name: 'หมู่บ้านซึนะ', lat: 48, lng: 58, status: 'warning' },   // (Yichang)
+  
+  // โซนลุ่มน้ำสาขา (ด้านล่าง)
+  { id: 'v_110', name: 'หมู่บ้านยูงะ', lat: 65, lng: 62, status: 'normal' },    // สาขาแยก (Zhangjiajie)
+  { id: 'v_104', name: 'หมู่บ้านคุโมะ', lat: 72, lng: 75, status: 'normal' },   // สาขาล่าง (Changsha)
+
+  // โซนปลายน้ำ (ขวา - ไหลออกทะเล)
+  { id: 'v_107', name: 'หมู่บ้านอาเมะ', lat: 45, lng: 72, status: 'normal' },   // (Wuhan)
+  { id: 'v_105', name: 'หมู่บ้านอิวะ', lat: 35, lng: 82, status: 'normal' },    // (Nanjing)
+  { id: 'v_109', name: 'หมู่บ้านคุสะ', lat: 28, lng: 92, status: 'normal' }     // ปากแม่น้ำ (Shanghai)
+
 ].map(v => ({
   ...v,
-  houses: generateHouses(v.id) // ยัดบ้าน 10 หลังใส่เข้าไป
+  houses: generateHouses(v.id)
 }));
